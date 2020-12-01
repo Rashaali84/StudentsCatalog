@@ -1,0 +1,88 @@
+﻿@model StudentsCatalog.Models.Course
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Credits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Credits)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OnlineCourse.URL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OnlineCourse.URL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OnsiteCourse.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OnsiteCourse.Location)
+        </dd>
+
+    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                Course Title
+            </th>
+            <th>
+                Grade
+            </th>
+            <th>
+                Credits
+            </th>
+        </tr>
+
+        @foreach (var item in Model.People)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HireDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CourseID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
