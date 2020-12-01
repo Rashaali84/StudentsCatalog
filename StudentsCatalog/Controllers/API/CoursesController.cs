@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using StudentsCatalog.Dtos;
+using AutoMapper;
 
 namespace StudentsCatalog.Controllers.API
 {
@@ -16,38 +18,46 @@ namespace StudentsCatalog.Controllers.API
 
         }
         //Get//Courses
+        //instal automapper from nuget pacjage manager to map objects to dtos 
+        //install-package automapper -version:4.1
+        //open app_start 
+        //add a new class called Mapping profile 
+        //mapp this when application started so open glocal.aszx
+
         [HttpGet]
-        public IEnumerable<Course> GetCourses()
+        public IEnumerable<CourseDto> GetCourses()
         {
-            return _DbContext.Courses.ToList();
+            return _DbContext.Courses.ToList().Select(Mapper.Map<Course, CourseDto>); 
         }
-        public Course GetCourse(int Id)
+        public CourseDto GetCourse(int Id)
         {
             var course = _DbContext.Courses.SingleOrDefault(c => c.CourseID == Id);
             if (course == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             else
 
-                return course;
+                return  Mapper.Map<Course,CourseDto>(course);
         }
         //Post/courses
         [HttpPost]
         //PostCourse for example is better not to have http post 
-        public Course CreateCourse(Course course)
+        public CourseDto CreateCourse(CourseDto courseDto)
         {
             //Validate the model first 
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             else
             {
+                var course = Mapper.Map<CourseDto, Course>(courseDto);
                 _DbContext.Courses.Add(course);
                 _DbContext.SaveChanges();
-                return course;
+                courseDto.CourseID = course.CourseID;
+                return courseDto;
             }
         }
         // put api/customers/1 // update 
         [HttpPut]
-        public void UpdateCourse(int id, Course course)
+        public void UpdateCourse(int id, CourseDto courseDto)
         { //Validate the model first 
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -58,7 +68,8 @@ namespace StudentsCatalog.Controllers.API
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 else
                 {
-                    courseDb.Title = course.Title;
+                    Mapper.Map<CourseDto, Course>(courseDto, courseDb);
+                   
                     _DbContext.SaveChanges();
                 }
 ;            }
