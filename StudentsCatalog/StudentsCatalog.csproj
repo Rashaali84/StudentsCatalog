@@ -203,8 +203,8 @@
     </EntityDeploy>
     <Content Include="Models\StudentsDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>StudentsDBModel.Context.cs</LastGenOutput>
       <DependentUpon>StudentsDBModel.edmx</DependentUpon>
+      <LastGenOutput>StudentsDBModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\StudentsDBModel.edmx.diagram">
       <DependentUpon>StudentsDBModel.edmx</DependentUpon>
