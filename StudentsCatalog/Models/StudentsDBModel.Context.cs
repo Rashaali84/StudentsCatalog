@@ -14,8 +14,9 @@ namespace StudentsCatalog.Models
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
-    public partial class StudentsEntities : DbContext
+    using Microsoft.AspNet.Identity.EntityFramework;
+
+    public partial class StudentsEntities : IdentityDbContext<AppUser>
     {
         public StudentsEntities()
             : base("name=StudentsEntities")
